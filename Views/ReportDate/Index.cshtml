@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Estore.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>ЗАКАЗЫ ПО ДАТАМ</h2>
+
+
+
+<form action="@Url.Action("Index")" method="get">
+    <h4>Продажи за период:</h4>
+    <div id="from">
+        Выбрать период с <input type="date" name="startdate" />
+        до  <input type="date" name="enddate" />
+        <input type="submit" value="search" />
+    </div>
+</form><br />
+
+
+
+<div style="background-color:#efeff7" id="period">
+    @ViewBag.Info3
+    @ViewBag.Info4
+    @ViewBag.Noz
+</div><br />
+
+
+
+
+
+<table align="center" border="1" draggable="false">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.CustomerFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfBuy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuantityOfProducts)
+        </th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBuy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityOfProducts)
+            </td>
+
+        </tr>
+    }
+    <tr style="background-color:#90b7f5">
+        <td>TOTAL</td>
+        <td></td>
+        <td></td>
+        <td>@ViewBag.Sum</td>
+        
+    </tr>
+
+
+
+</table>

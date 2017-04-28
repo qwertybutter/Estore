@@ -1,0 +1,43 @@
+﻿@model Estore.Models.Customer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Customer</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CustomerFirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CustomerFirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CustomerLatName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CustomerLatName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateOfRegistration)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateOfRegistration)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CustomerEmail)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CustomerEmail)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

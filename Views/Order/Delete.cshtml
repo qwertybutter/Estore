@@ -1,0 +1,49 @@
+﻿@model Estore.Models.Order
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Order</legend>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.Product.ProductName)
+    </div>
+    <div class="display-field">
+       
+        @Html.DisplayFor(model => model.Product.ProductName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Customer.CustomerFirstName)
+
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Customer.CustomerFirstName)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.DateOfBuy)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateOfBuy)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.QuantityOfProducts)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QuantityOfProducts)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

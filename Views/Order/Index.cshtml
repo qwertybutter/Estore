@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Estore.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>ЗАКАЗЫ</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<form action="@Url.Action("Index")" method="get">
+    <div>
+        <input type="text" name="firstname" />
+        <input type="submit" value="search" /><br />
+    </div>
+</form> 
+
+<br />
+@ViewBag.Error
+@ViewBag.Cust
+<br /><br />
+
+    <table align="center" border="1" draggable="false">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.CustomerFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBuy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityOfProducts)
+            </th>
+
+            <th></th>
+        </tr>
+
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerFirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBuy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantityOfProducts)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+        <tr style="border-color:blue">
+            <td>TOTAL</td>
+            <td></td>
+            <td></td>
+            <td>@ViewBag.Sum</td>
+            <td></td>
+        </tr>
+
+
+
+    </table>

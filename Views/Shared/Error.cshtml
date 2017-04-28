@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ошибка</title>
+</head>
+<body>
+    <hgroup>
+        <h1>Ошибка.</h1>
+        <h2>При обработке запроса произошла ошибка.</h2>
+    </hgroup>
+
+    @Html.ActionLink("Товары", "Index", "Product")<br />
+    @Html.ActionLink("Покупатели", "Index", "Customer")<br />
+    @Html.ActionLink("Заказы", "Index", "Order")<br />
+</body>
+</html>

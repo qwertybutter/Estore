@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Estore.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>ТОВАРЫ</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table align="center" border="1" draggable="false">
+    @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfAdding)
+            </th>
+
+         <th></th>
+        </tr>*@
+    <tr>
+        <th>
+            @Html.ActionLink("Название продукта", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Стоимость", "Index", new { sortOrder = ViewBag.PriceSortParam })
+        </th>
+        <th>
+           @Html.ActionLink("Описание", "Index", new { sortOrder = ViewBag.DescrSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Дата добавления", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th>
+                Действия
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfAdding)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
