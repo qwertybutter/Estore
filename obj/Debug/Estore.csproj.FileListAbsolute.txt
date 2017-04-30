@@ -120,3 +120,4 @@ D:\Estore\bin\ru\System.Web.WebPages.Deployment.resources.dll
 D:\Estore\bin\ru\System.Web.WebPages.Razor.resources.dll
 D:\Estore\obj\Debug\Estore.dll
 D:\Estore\obj\Debug\Estore.pdb
+D:\Estore\obj\Debug\Estore.csprojResolveAssemblyReference.cache
