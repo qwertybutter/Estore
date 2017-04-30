@@ -82,3 +82,41 @@ D:\DEV Files\Estore\bin\EntityFramework.xml
 D:\DEV Files\Estore\bin\EntityFramework.SqlServer.xml
 D:\DEV Files\Estore\bin\ru\EntityFramework.resources.dll
 D:\DEV Files\Estore\bin\ru\EntityFramework.SqlServer.resources.dll
+D:\Estore\bin\Estore.dll.config
+D:\Estore\bin\Estore.dll
+D:\Estore\bin\Estore.pdb
+D:\Estore\bin\EntityFramework.dll
+D:\Estore\bin\EntityFramework.SqlServer.dll
+D:\Estore\bin\Microsoft.Web.Infrastructure.dll
+D:\Estore\bin\Newtonsoft.Json.dll
+D:\Estore\bin\System.Net.Http.Formatting.dll
+D:\Estore\bin\System.Web.Http.dll
+D:\Estore\bin\System.Web.Http.WebHost.dll
+D:\Estore\bin\System.Web.Mvc.dll
+D:\Estore\bin\System.Web.Razor.dll
+D:\Estore\bin\System.Web.WebPages.Deployment.dll
+D:\Estore\bin\System.Web.WebPages.dll
+D:\Estore\bin\System.Web.WebPages.Razor.dll
+D:\Estore\bin\EntityFramework.xml
+D:\Estore\bin\EntityFramework.SqlServer.xml
+D:\Estore\bin\Microsoft.Web.Infrastructure.xml
+D:\Estore\bin\System.Net.Http.Formatting.xml
+D:\Estore\bin\System.Web.Http.xml
+D:\Estore\bin\System.Web.Http.WebHost.xml
+D:\Estore\bin\System.Web.Mvc.xml
+D:\Estore\bin\System.Web.Razor.xml
+D:\Estore\bin\System.Web.WebPages.xml
+D:\Estore\bin\System.Web.WebPages.Deployment.xml
+D:\Estore\bin\System.Web.WebPages.Razor.xml
+D:\Estore\bin\ru\EntityFramework.resources.dll
+D:\Estore\bin\ru\EntityFramework.SqlServer.resources.dll
+D:\Estore\bin\ru\System.Net.Http.Formatting.resources.dll
+D:\Estore\bin\ru\System.Web.Http.resources.dll
+D:\Estore\bin\ru\System.Web.Http.WebHost.resources.dll
+D:\Estore\bin\ru\System.Web.Mvc.resources.dll
+D:\Estore\bin\ru\System.Web.Razor.resources.dll
+D:\Estore\bin\ru\System.Web.WebPages.resources.dll
+D:\Estore\bin\ru\System.Web.WebPages.Deployment.resources.dll
+D:\Estore\bin\ru\System.Web.WebPages.Razor.resources.dll
+D:\Estore\obj\Debug\Estore.dll
+D:\Estore\obj\Debug\Estore.pdb
