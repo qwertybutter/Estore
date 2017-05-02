@@ -7,7 +7,7 @@
 <h2>КЛИЕНТЫ</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("ДОБАВИТЬ НОВОГО КЛИЕНТА", "Create")
 </p>
 <table align="center" border="1" draggable="false">
     <tr>
@@ -23,7 +23,7 @@
         <th>
             @Html.DisplayNameFor(model => model.CustomerEmail)
         </th>
-        <th></th>
+        <th>Действия</th>
     </tr>
 
     @foreach (var item in Model)
