@@ -17,10 +17,10 @@ namespace Estore.Controllers
         //
         // GET: /Product/
 
-        //public ActionResult Index()
-        //{
-        //    return View(db.Products.ToList());
-        //}
+        /*public ActionResult Index()
+        {
+            return View(db.Products.ToList());
+        }*/
 
 
         public ActionResult Index(string sortOrder)

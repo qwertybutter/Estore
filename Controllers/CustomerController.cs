@@ -16,6 +16,7 @@ namespace Estore.Controllers
         //
         // GET: /Customer/
 
+                    //need make sorting here
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
