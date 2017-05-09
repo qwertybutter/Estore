@@ -12,13 +12,13 @@
 <table align="center" border="1" draggable="false">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CustomerFirstName)
+            @Html.ActionLink("Имя ", "Index", new { sortOrder = ViewBag.FirstNameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CustomerLatName)
+            @Html.ActionLink("Фамилия ", "Index", new { sortOrder = ViewBag.LastNameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateOfRegistration)
+            @Html.ActionLink("Дата регистрации ", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CustomerEmail)

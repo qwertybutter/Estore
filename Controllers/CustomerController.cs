@@ -16,10 +16,42 @@ namespace Estore.Controllers
         //
         // GET: /Customer/
 
-                    //need make sorting here
-        public ActionResult Index()
+                    
+       /* public ActionResult Index()
         {
             return View(db.Customers.ToList());
+        }*/
+
+        public ActionResult Index(string sortOrder)
+        {
+            ViewBag.FirstNameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.LastNameSortParm = sortOrder == "asc_lastName" ? "desc_lastName" : "asc_lastName";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            var customers = from s in db.Customers
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    customers = customers.OrderByDescending(s => s.CustomerFirstName);
+                    break;
+                case "asc_lastName":
+                    customers = customers.OrderBy(s => s.CustomerLatName);
+                    break;
+                case "desc_lastName":
+                    customers = customers.OrderByDescending(s => s.CustomerLatName);
+                    break;
+                case "Date":
+                    customers = customers.OrderBy(s => s.DateOfRegistration);
+                    break;
+                case "date_desc":
+                    customers = customers.OrderByDescending(s => s.DateOfRegistration);
+                    break;
+                default:
+                    customers = customers.OrderBy(s => s.CustomerFirstName);
+                    break;
+            }
+            return View(customers.ToList());
         }
 
         //
