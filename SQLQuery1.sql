@@ -73,6 +73,7 @@ as insert into  Customers
 (CustomerFirstName, CustomerLatName, DateOfRegistration)
 values
 (@ft, @lt, @dt)
+go
 
 exec insIntoCust 'storedProcedureFt','storedProcedureLt', '2017-05-28 07:52:37.330'
 go
@@ -80,3 +81,17 @@ go
 declare @date datetime = getdate();
 exec insIntoCust 'testStPro','testStorPro', @date
 go
+
+drop procedure insIntoCust
+go
+declare @dater datetime = getdate()
+
+create procedure insIntoCust(@ft nvarchar(max) ='DefaultParStProd', @lt nvarchar(max) ='DefaultParStProd', @dt datetime = '2017-05-28', @em nvarchar(max) = 'defStPrMail')
+as insert into  Customers
+(CustomerFirstName, CustomerLatName, DateOfRegistration, CustomerEmail)
+values
+(@ft, @lt, @dt, @em)
+
+
+declare @dater datetime = getdate();
+exec insIntoCust 'test','test',@dater,'test'
