@@ -19,7 +19,7 @@ namespace Estore
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-//test
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

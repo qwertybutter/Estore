@@ -26,7 +26,7 @@ namespace Estore.Controllers
                 {
                    var  orders = db.Orders.Include(o => o.Product).Include(o => o.Customer).Where(t => t.DateOfBuy >= startdate & t.DateOfBuy <= enddate);
                     ViewBag.Sum = orders.Sum(o => o.QuantityOfProducts);
-                                    //need make better 
+                                    //костыль!!!!!!
                     DateTime b = (DateTime)startdate;
                     DateTime c = (DateTime)enddate;
                     ViewBag.Info3 = "Заказы за период с  " + b.ToShortDateString();

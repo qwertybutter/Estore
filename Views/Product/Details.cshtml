@@ -7,16 +7,19 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>Product</legend>
+    <legend>Товар</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ProductName)
+        @Html.DisplayNameFor(model => model.ProductName)
     </div>
+   
     <div class="display-field">
         @Html.DisplayFor(model => model.ProductName)
     </div>
 
 
+
+    
 
 
 
@@ -43,7 +46,10 @@
         @Html.DisplayFor(model => model.DateOfAdding)
     </div>
 </fieldset>
+
+
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Редактировать товар", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Все товары", "Index")
 </p>

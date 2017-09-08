@@ -23,10 +23,9 @@ namespace Estore.Controllers
                 
                 if (firstname != "")
                 {
-                     
                     var orders = db.Orders.Include(o => o.Product).Include(o => o.Customer).Where(o => o.Customer.CustomerFirstName.Contains(firstname));
                     ViewBag.Sum = orders.Sum(o => o.QuantityOfProducts);
-                    ViewBag.Cust = "Найденные совпадения с :  " + " \"  " + firstname + "  \"  ";
+                    ViewBag.Cust = "Согласно поиску" + "  " + '"'+firstname+'"' +" были найдены заказы: ";
                     return View(orders.ToList());
                 }
 

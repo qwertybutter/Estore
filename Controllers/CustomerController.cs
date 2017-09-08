@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Estore.Models;
+using PagedList;
 
 namespace Estore.Controllers
 {
@@ -16,42 +17,58 @@ namespace Estore.Controllers
         //
         // GET: /Customer/
 
-                    
-       /* public ActionResult Index()
-        {
-            return View(db.Customers.ToList());
-        }*/
 
-        public ActionResult Index(string sortOrder)
+
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewBag.FirstNameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.LastNameSortParm = sortOrder == "asc_lastName" ? "desc_lastName" : "asc_lastName";
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.FirstNameParm = sortOrder =="firstName_asc" ? "firstName_desc": "firstName_asc";
 
-            var customers = from s in db.Customers
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var students = from s in db.Customers
                            select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.CustomerFirstName.Contains(searchString)
+                                       || s.CustomerLatName.Contains(searchString));
+            }
             switch (sortOrder)
             {
+                case "firstName_desc":
+                    students = students.OrderByDescending(s => s.CustomerFirstName);
+                    break;
+                case "firstName_asc":
+                    students = students.OrderBy(s => s.CustomerFirstName);
+                    break;
                 case "name_desc":
-                    customers = customers.OrderByDescending(s => s.CustomerFirstName);
-                    break;
-                case "asc_lastName":
-                    customers = customers.OrderBy(s => s.CustomerLatName);
-                    break;
-                case "desc_lastName":
-                    customers = customers.OrderByDescending(s => s.CustomerLatName);
+                    students = students.OrderByDescending(s => s.CustomerLatName);
                     break;
                 case "Date":
-                    customers = customers.OrderBy(s => s.DateOfRegistration);
+                    students = students.OrderBy(s => s.DateOfRegistration);
                     break;
                 case "date_desc":
-                    customers = customers.OrderByDescending(s => s.DateOfRegistration);
+                    students = students.OrderByDescending(s => s.DateOfRegistration);
                     break;
-                default:
-                    customers = customers.OrderBy(s => s.CustomerFirstName);
+                default:  // Name ascending 
+                    students = students.OrderBy(s => s.CustomerLatName);
                     break;
             }
-            return View(customers.ToList());
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
         }
 
         //
