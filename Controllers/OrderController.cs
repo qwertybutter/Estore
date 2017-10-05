@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Estore.Models;
+using PagedList;
 
 namespace Estore.Controllers
 {
@@ -16,34 +17,98 @@ namespace Estore.Controllers
         //
         // GET: /Order/
 
-        public ActionResult Index(string firstname = "")
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            try
-            {
-                
-                if (firstname != "")
-                {
-                    var orders = db.Orders.Include(o => o.Product).Include(o => o.Customer).Where(o => o.Customer.CustomerFirstName.Contains(firstname));
-                    ViewBag.Sum = orders.Sum(o => o.QuantityOfProducts);
-                    ViewBag.Cust = "Согласно поиску" + "  " + '"'+firstname+'"' +" были найдены заказы: ";
-                    return View(orders.ToList());
-                }
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.ProdName = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.CustName = sortOrder == "firstName_asc" ? "firstName_desc" : "firstName_asc";
+            ViewBag.QuanProd = sortOrder == "price_asc" ? "price_desc" : "price_asc";
 
-                else
-                {
-                    var orders = db.Orders.Include(o => o.Product).Include(o => o.Customer);
-                    ViewBag.Sum = db.Orders.Sum(o => o.QuantityOfProducts);
-                    return View(orders.ToList());
-                }
-            }
-            catch
+
+            if (searchString != null)
             {
-                var orders = db.Orders.Include(o => o.Product).Include(o => o.Customer);
-                ViewBag.Sum = db.Orders.Sum(o => o.QuantityOfProducts);
-                ViewBag.Error = "Нет заказа с таким покупателем:  " + "  " + firstname;
-                return View(orders.ToList());
+                page = 1;
             }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+
+            ViewBag.CurrentFilter = searchString;
+
+            var students = from s in db.Orders.Include(o => o.Product).Include(o => o.Customer)
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.Customer.CustomerFirstName.Contains(searchString)
+                                       || s.Product.ProductName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "price_asc":
+                    students = students.OrderBy(s => s.QuantityOfProducts);
+                    break;
+                case "price_desc":
+                    students = students.OrderByDescending(s => s.QuantityOfProducts);
+                    break;
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.Product.ProductName);
+                    break;
+                case "firstName_asc":
+                    students = students.OrderBy(s => s.Customer.CustomerFirstName);
+                    break;
+                case "firstName_desc":
+                    students = students.OrderByDescending(s => s.Customer.CustomerFirstName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.DateOfBuy);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.DateOfBuy);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.Product.ProductName);
+                    break;
+
+            }
+            ViewBag.Sum = db.Orders.Sum(o => o.QuantityOfProducts);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
         }
+
+        //public ActionResult Index(string firstname = "")
+        //{
+        //    try
+        //    {
+                
+        //        if (firstname != "")
+        //        {
+        //            var orders = db.Orders.Include(o => o.Product).Include(o => o.Customer).Where(o => o.Customer.CustomerFirstName.Contains(firstname));
+        //            ViewBag.Sum = orders.Sum(o => o.QuantityOfProducts);
+        //            ViewBag.Cust = "Согласно поиску" + "  " + '"'+firstname+'"' +" были найдены заказы: ";
+        //            return View(orders.ToList());
+        //        }
+
+        //        else
+        //        {
+        //            var orders = db.Orders.Include(o => o.Product).Include(o => o.Customer);
+        //            ViewBag.Sum = db.Orders.Sum(o => o.QuantityOfProducts);
+        //            return View(orders.ToList());
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        var orders = db.Orders.Include(o => o.Product).Include(o => o.Customer);
+        //        ViewBag.Sum = db.Orders.Sum(o => o.QuantityOfProducts);
+        //        ViewBag.Error = "Нет заказа с таким покупателем:  " + "  " + firstname;
+        //        return View(orders.ToList());
+        //    }
+        //}
 
 
 

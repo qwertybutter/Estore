@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Estore.Models;
+using PagedList;
 
 
 namespace Estore.Controllers
@@ -17,21 +18,32 @@ namespace Estore.Controllers
         //
         // GET: /Product/
 
-        //public ActionResult Index()
-        //{
-        //    return View(db.Products.ToList());
-        //}
-
-
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder,string currentFilter, string searchString, int? page)
         {
+
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DescrSortParm = sortOrder== "asc_desc"? "desc_desc": "asc_desc";
             ViewBag.PriceSortParam = sortOrder == "price_asc" ? "price_desc" : "price_asc";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
             var students = from s in db.Products
                            select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.ProductName.Contains(searchString)
+                                       || s.ProductDescription.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "price_asc":
@@ -58,8 +70,12 @@ namespace Estore.Controllers
                 default:
                     students = students.OrderBy(s => s.ProductName);
                     break;
+                  
             }
-            return View(students.ToList());
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
         }
         
         
@@ -151,10 +167,25 @@ namespace Estore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (!db.Orders.Any(t => t.Product.Id == id))
+            {
+                db.Products.Remove(product);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            //  else return View("Error");
+
+           else 
+            {
+                TempData["notice"] = "Can't delete!";
+                return View(product);
+            }
+
+
+
+
         }
 
         protected override void Dispose(bool disposing)

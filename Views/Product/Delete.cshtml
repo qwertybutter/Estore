@@ -38,10 +38,27 @@
         @Html.DisplayFor(model => model.DateOfAdding)
     </div>
 </fieldset>
-@using (Html.BeginForm()) {
+
+
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Delete" /> |
+        <input type="submit" value="Delete" /> 
+
+
         @Html.ActionLink("Back to List", "Index")
+       
+      @if (TempData["notice"] != null)
+      {
+        <script type="text/javascript">
+            alert("Невозможно удалить. На текущий продукт есть заказ(ы).");
+        </script>
+      }
+          
+        
+
     </p>
 }
+
+

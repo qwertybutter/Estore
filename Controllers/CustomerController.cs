@@ -35,6 +35,7 @@ namespace Estore.Controllers
                 searchString = currentFilter;
             }
 
+
             ViewBag.CurrentFilter = searchString;
 
             var students = from s in db.Customers
@@ -159,9 +160,19 @@ namespace Estore.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (!db.Orders.Any(t=>t.Customer.Id==id))
+            {
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            // else return View("Error");
+            else
+            {
+                TempData["notice"] = "Can't delete!";
+                return View(customer);
+            }
+
         }
 
 

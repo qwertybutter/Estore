@@ -9,7 +9,7 @@ namespace Estore.Models
 {
     public class DataBaseContext:DbContext
     {
-        public DataBaseContext():base("DataContext")
+        public DataBaseContext():base(nameOrConnectionString: "DataContext")
         {
 
         }

@@ -1,40 +1,58 @@
-﻿@model IEnumerable<Estore.Models.Order>
+﻿@*@model IEnumerable<Estore.Models.Order>
 
 @{
     ViewBag.Title = "Index";
-}
+}*@
+
+@model PagedList.IPagedList<Estore.Models.Order>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <h2>ЗАКАЗЫ</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить заказ", "Create")
 </p>
 
-<form action="@Url.Action("Index")" method="get">
+
+@using (Html.BeginForm("Index", "Order", FormMethod.Get))
+{
+    <p>
+        Найти по названию/описанию: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Поиск" />
+    </p>
+}
+
+
+@*<form action="@Url.Action("Index")" method="get">
     <div>
         <input type="text" name="firstname" />
         <input type="submit" value="search" /><br />
     </div>
-</form> 
+</form>*@ 
 
-<br />
+@*<br />
 @ViewBag.Error
 @ViewBag.Cust
-<br /><br />
+<br /><br />*@
 
     <table align="center" border="1" draggable="false">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Product.ProductName)
+                @Html.ActionLink("Название продукта", "Index", new { sortOrder = ViewBag.ProdName, currentFilter = ViewBag.CurrentFilter })
+                @*@Html.DisplayNameFor(model => model.Product.ProductName)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer.CustomerFirstName)
+                @Html.ActionLink("Имя клиента", "Index", new { sortOrder = ViewBag.CustName, currentFilter = ViewBag.CurrentFilter })
+                @*@Html.DisplayNameFor(model => model.Customer.CustomerFirstName)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBuy)
+                @Html.ActionLink("Дата покупки", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+                @*@Html.DisplayNameFor(model => model.DateOfBuy)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantityOfProducts)
+                @Html.ActionLink("Количество единиц", "Index", new { sortOrder = ViewBag.QuanProd, currentFilter = ViewBag.CurrentFilter })
+                @*@Html.DisplayNameFor(model => model.QuantityOfProducts)*@
             </th>
 
             <th></th>
@@ -66,7 +84,7 @@
             </tr>
         }
         <tr style="border-color:blue">
-            <td>TOTAL</td>
+            <td>Всего единиц заказано</td>
             <td></td>
             <td></td>
             <td>@ViewBag.Sum</td>
@@ -76,3 +94,7 @@
 
 
     </table>
+<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

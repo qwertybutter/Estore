@@ -1,52 +1,45 @@
-﻿@model IEnumerable<Estore.Models.Product>
+﻿@model PagedList.IPagedList<Estore.Models.Product>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-@{
-    ViewBag.Title = "Index";
-}
 
 <h2>ТОВАРЫ</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить товар", "Create")
 </p>
-<table align="center" border="1" draggable="false">
-    @*<tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
+@using (Html.BeginForm("Index", "Product", FormMethod.Get))
+{
+    <p>
+        Найти по названию/описанию: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Поиск" />
+    </p>
+}
 
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfAdding)
-            </th>
 
-         <th></th>
-        </tr>*@
+<table align="center" style="background-color:aliceblue" class="table">
+
     <tr>
         <th>
-            @Html.ActionLink("Название продукта", "Index", new { sortOrder = ViewBag.NameSortParm })
+
+          
+            @Html.ActionLink("Название продукта", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Стоимость", "Index", new { sortOrder = ViewBag.PriceSortParam })
+            @Html.ActionLink("Стоимость", "Index", new { sortOrder = ViewBag.PriceSortParam, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-           @Html.ActionLink("Описание", "Index", new { sortOrder = ViewBag.DescrSortParm })
+            @Html.ActionLink("Описание", "Index", new { sortOrder = ViewBag.DescrSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Дата добавления", "Index", new { sortOrder = ViewBag.DateSortParm })
+            @Html.ActionLink("Дата добавления", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-                Действия
+            Действия
         </th>
     </tr>
-
 
     @foreach (var item in Model)
     {
@@ -70,5 +63,10 @@
             </td>
         </tr>
     }
-
 </table>
+<br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+

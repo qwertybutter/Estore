@@ -43,5 +43,14 @@
     <p>
         <input type="submit" value="Delete" /> |
         @Html.ActionLink("Back to List", "Index")
+
+
+        @if (TempData["notice"] != null)
+        {
+            <script type="text/javascript">
+            alert("Невозможно удалить. Для этого клиента есть заказ(ы).");
+            </script>
+        }
+
     </p>
 }
