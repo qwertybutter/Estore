@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/Estore/v15/Server/sqlite3/storage.ide-wal
+/.vs/Estore/v15/Server/sqlite3/storage.ide-shm
+/.vs/Estore/v15/Server/sqlite3/storage.ide
+/.vs/Estore/v15/Server/sqlite3/db.lock
